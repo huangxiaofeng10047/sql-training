@@ -1,38 +1,38 @@
 version: '2'
 services:
-  sql-client:
-    image: fhueske/flink-sql-client-training-1.7.2:latest
-    depends_on:
-      - kafka
-      - jobmanager
-      - elasticsearch
-    environment:
-      FLINK_JOBMANAGER_HOST: jobmanager
-      ZOOKEEPER_CONNECT: zookeeper
-      KAFKA_BOOTSTRAP: kafka
-      ES_HOST: elasticsearch
-  jobmanager:
-    image: flink:1.7.2-scala_2.12
-    hostname: "jobmanager"
-    expose:
-      - "6123"
-    ports:
-      - "8081:8081"
-    command: jobmanager
-    environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
-  taskmanager:
-    image: flink:1.7.2-scala_2.12
-    expose:
-      - "6121"
-      - "6122"
-    depends_on:
-      - jobmanager
-    command: taskmanager
-    links:
-      - jobmanager:jobmanager
-    environment:
-      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+  # sql-client:
+  #   image: fhueske/flink-sql-client-training-1.7.2:latest
+  #   depends_on:
+  #     - kafka
+  #     - jobmanager
+  #     - elasticsearch
+  #   environment:
+  #     FLINK_JOBMANAGER_HOST: jobmanager
+  #     ZOOKEEPER_CONNECT: zookeeper
+  #     KAFKA_BOOTSTRAP: kafka
+  #     ES_HOST: elasticsearch
+  # jobmanager:
+  #   image: flink:1.7.2-scala_2.12
+  #   hostname: "jobmanager"
+  #   expose:
+  #     - "6123"
+  #   ports:
+  #     - "8081:8081"
+  #   command: jobmanager
+  #   environment:
+  #     - JOB_MANAGER_RPC_ADDRESS=jobmanager
+  # taskmanager:
+  #   image: flink:1.7.2-scala_2.12
+  #   expose:
+  #     - "6121"
+  #     - "6122"
+  #   depends_on:
+  #     - jobmanager
+  #   command: taskmanager
+  #   links:
+  #     - jobmanager:jobmanager
+  #   environment:
+  #     - JOB_MANAGER_RPC_ADDRESS=jobmanager
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
